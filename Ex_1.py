@@ -1,6 +1,6 @@
 import requests
 import re
-
+import string
 
 # Import słownika
 url = "https://raw.githubusercontent.com/sujithps/Dictionary/master/Oxford%20English%20Dictionary.txt?fbclid=IwAR37WSDQx62jLyMBgGbxKfan8kNkGHQ0eNyaFUunMy8kIWtcbnvoCVmAGEk"
@@ -11,35 +11,56 @@ dictionary = r.text
 # Rozbicie słownika na osobne linijki
 
 print('First step - all lines')
-Full_list = dictionary.split("\n") # TODO 2): read about Python naming conventions
-print(Full_list[0])
-
+full_list = dictionary.split("\n")
+#print(full_list[0:10])
 
 # C reating list without empty positions
 
-print('Second step - no empty lines') # TODO 4) stick to one convention - use either double quotes or single ones
-no_empty_list = []
-no_empty_list = [line for line in Full_list if line] # TODO 1): you don't have to initialize an empty array if you perform list comprehension
-print(no_empty_list[0])
-
+print('Second step - no empty lines')
+no_empty_list = [line for line in full_list if line]
+#print(no_empty_list[0:10])
 
 # Creating list of list with separated lines
 
 print('Third step - list of lists with words')
-Full_separated_list = [element.split(' ') for element in no_empty_list] # TODO 1): here's a proper way of list comprehension
-print(Full_separated_list[0])
+full_separated_list = [element.split(' ') for element in no_empty_list]
+#print(full_separated_list[0:10])
 
-
-# Creating list with only passwords
+# Creating list with only passwords without empty lines
 
 print('Fourth step - list with only first word')
-passwords = []
-passwords = [item[0] for item in Full_separated_list]
-print(passwords[0:10])
-
+passwords = [item[0] for item in full_separated_list if item[0].strip('\n')]
+#print(passwords[2016])
 
 # Creating new file to write there passwords
-file = open("Passwords.txt","a+") # TODO 3): why a+? 
-for i in range(len(passwords)): # TODO 5): can you think of another way of writing this loop?
-    file.write(passwords[i]+"\n")
-# TODO 6): read about with open statemenet
+
+#with open('Passwords.txt','a+') as file:
+#    for i in range(len(passwords)):
+#        file.write(passwords[i]+"\n")
+
+letters = string.ascii_uppercase
+
+# Creating list of indexes
+index = []
+for l in letters:
+    index.append(passwords.index(f'{l}'))
+
+# Try to slice list in parts but I have no good idea how to do it
+i = 0
+n = 0
+for l in letters:
+    n = n + 1
+    with open(f'{l}_words', 'w+') as f:
+        if i < index[n]:
+            f.write(passwords[i]+'\n'')
+        elif
+
+
+#for l in letters:
+#    with open(f'{l}_words.txt', 'w+'):
+#        for passwords.index(f'{l}') in range()
+
+
+
+
+
