@@ -1,6 +1,7 @@
 import argparse
 import random
 import string
+import os
 
 # Przy pomocy argparse stworzyć program, który będzie przyjmował dwa argumenty
 # * liczbę słów
@@ -15,7 +16,7 @@ parser.add_argument("letter", help="A letter that starts words")
 args = parser.parse_args()
 
 print('Your chosen words:')
-with open(f'Dictionaries/{args.letter}_words.txt', 'r') as f:
+with open(os.path.join('Dictionaries',f'{args.letter}_words.txt'), 'r') as f:
     list_of_words = f.readlines()
     for i in range(args.number):
         print(random.choice(list_of_words))
