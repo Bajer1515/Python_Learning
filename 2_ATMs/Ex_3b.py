@@ -4,43 +4,50 @@ import json
     #def __init__(self):
 
 #To tak na próbę zanim nauczę się wczytywać z pliku i do niego zapisywać od razu
-data = {
-    'ATMs':[
+ATMs = {
+    'ATM_1':
         {'name': 'ATM_1', 'balance': 10000},
+    'ATM_2':
         {'name': 'ATM_2', 'balance': 20000},
+    'ATM_3':
         {'name': 'ATM_3', 'balance': 30000},
+    'ATM_4':
         {'name': 'ATM_4', 'balance': 40000},
+    'ATM_5':
         {'name': 'ATM_5', 'balance': 50000}
-    ]
 }
 users = {
-    'Clients':[
-        {'name': 'Adam Bajerowicz', 'PIN': '0001', 'balance': 15000},
-        {'name': 'Lukasz Klekowski', 'PIN': '0002', 'balance': 20000},
-        {'name': 'Piotr Kawa', 'PIN': '0003', 'balance': 25000}
-    ]
+    'Adam_Bajerowicz':{
+        'PIN': '0001', 'balance': 15000},
+    'Lukasz_Klekowski':{
+        'PIN': '0002', 'balance': 20000},
+    'Piotr_Kawa':{
+        'PIN': '0003', 'balance': 25000}
 }
-x = users['Clients']
-print(x)
 
 def choice():
     print('You can use ATM no. 1, 2, 3, 4 or 5. Which one do You like?')
     n = int(input('I\'d like to choose ATM number: '))
-    if (n < 1 & n > 5):
-        n = int(input('Wrong! Select correct ATM!'))
+    while n not in [1,2,3,4,5]:
+        n = int(input('Wrong! Select correct ATM! Your ATM number: '))
 
 
 def authorisation():
     print('****   Login   ****')
     name = str(input('Your name: '))
-    PIN = str(input('Your PIN: '))
+    password = str(input('Your PIN: '))
+    if password == users[f'{name}']['PIN']:
+        print('Login succesfully!')
+    else:
+        print('Invalid login or password')
 
+#    def payment(): #Wypłata
 
-#    def payment():
+#    def withdrawal(): #Wpłata
 
-#    def withdrawal():
+#    def balance(): #Sprawdzenie salda konta
 
-#    def balance():
+#    def change_PIN(): #Zmiana PINu
 
 #with open('Clients', 'r') as file:
 #    loaded_json = json.loads(file)
