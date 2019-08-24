@@ -1,1 +1,1 @@
-{"ATMs": [{"name": "ATM_1", "balance": 10000}, {"name": "ATM_2", "balance": 20000}, {"name": "ATM_3", "balance": 30000}, {"name": "ATM_4", "balance": 40000}, {"name": "ATM_5", "balance": 50000}]}
+{"ATM_1": {"name": "ATM_1", "balance": 10000}, "ATM_2": {"name": "ATM_2", "balance": 20000}, "ATM_3": {"name": "ATM_3", "balance": 30000}, "ATM_4": {"name": "ATM_4", "balance": 40000}, "ATM_5": {"name": "ATM_5", "balance": 50000}}

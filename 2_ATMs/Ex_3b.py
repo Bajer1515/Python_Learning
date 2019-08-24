@@ -3,7 +3,8 @@ import json
 #class Operations:
     #def __init__(self):
 
-#To tak na próbę zanim nauczę się wczytywać z pliku i do niego zapisywać od razu
+# This is just for try. I have created script that prepares this json statement.
+# I have problem with read data from it.
 ATMs = {
     'ATM_1':
         {'name': 'ATM_1', 'balance': 10000},
@@ -25,13 +26,17 @@ users = {
         'PIN': '0003', 'balance': 25000}
 }
 
+# I have prepared methods that can be done with ATM. Did I forget about sth?
+
+# Choice of ATM
 def choice():
     print('You can use ATM no. 1, 2, 3, 4 or 5. Which one do You like?')
     n = int(input('I\'d like to choose ATM number: '))
     while n not in [1,2,3,4,5]:
         n = int(input('Wrong! Select correct ATM! Your ATM number: '))
+    return n
 
-
+# Logging in
 def authorisation():
     print('****   Login   ****')
     name = str(input('Your name: '))
@@ -40,24 +45,42 @@ def authorisation():
         print('Login succesfully!')
     else:
         print('Invalid login or password')
+    return name
 
-#    def payment(): #Wypłata
+def payment(n, name):
+    amount = int(input('How much money do you need? \n'))
+    if ATMs[f'ATM_{n}']['balance'] < amount:
+        print('There is not enought money in this ATM!')
+    elif users[f'{name}']['balance'] < amount:
+        print('You have not enought money!')
+    else:
+        ATMs[f'ATM_{n}']['balance'] = ATMs[f'ATM_{n}']['balance'] - amount
+        users[f'{name}']['balance'] = users[f'{name}']['balance'] - amount
+    print('There is in ATM:', ATMs[f'ATM_{n}']['balance'])
+    print('There is on your account:',users[f'{name}']['balance'])
 
-#    def withdrawal(): #Wpłata
+def withdrawal(n, name): #Wpłata
+    amount = int(input('How much money you want to give in? \n'))
+    ATMs[f'ATM_{n}']['balance'] = ATMs[f'ATM_{n}']['balance'] + amount
+    users[f'{name}']['balance'] = users[f'{name}']['balance'] + amount
+    print('There is in ATM:', ATMs[f'ATM_{n}']['balance'])
+    print('There is on your account:',users[f'{name}']['balance'])
 
-#    def balance(): #Sprawdzenie salda konta
 
-#    def change_PIN(): #Zmiana PINu
+def balance(n, name): #Sprawdzenie salda konta
+    print('You have:', users[f'{name}']['balance'], 'zl')
+
 
 #with open('Clients', 'r') as file:
 #    loaded_json = json.loads(file)
 
 #print(loaded_json)
 
-choice()
-authorisation()
-
-
+n = choice()
+name = authorisation()
+payment(n, name)
+withdrawal(n, name)
+balance(n, name)
 
 #1. Wczytanie listy bankomatów.
 #2. Wybór bankomatu.

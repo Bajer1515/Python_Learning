@@ -18,25 +18,29 @@ import json
 
 #ATM - cash machine (pl. bankomat)
 
-data = {
-    'ATMs':[
+ATMs = {
+    'ATM_1':
         {'name': 'ATM_1', 'balance': 10000},
+    'ATM_2':
         {'name': 'ATM_2', 'balance': 20000},
+    'ATM_3':
         {'name': 'ATM_3', 'balance': 30000},
+    'ATM_4':
         {'name': 'ATM_4', 'balance': 40000},
+    'ATM_5':
         {'name': 'ATM_5', 'balance': 50000}
-    ]
 }
 with open('ATMs','w') as file:
-    json.dump(data, file)
+    json.dump(ATMs, file)
 
 
 users = {
-    'Clients':[
-        {'name': 'Adam Bajerowicz', 'PIN': '0001', 'balance': 15000},
-        {'name': 'Lukasz Klekowski', 'PIN': '0002', 'balance': 20000},
-        {'name': 'Piotr Kawa', 'PIN': '0003', 'balance': 25000}
-    ]
+    'Adam_Bajerowicz':{
+        'PIN': '0001', 'balance': 15000},
+    'Lukasz_Klekowski':{
+        'PIN': '0002', 'balance': 20000},
+    'Piotr_Kawa':{
+        'PIN': '0003', 'balance': 25000}
 }
 
 with open('Clients', 'w') as file:
