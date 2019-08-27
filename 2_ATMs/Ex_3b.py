@@ -1,53 +1,46 @@
 import json
+import os
+import time
 
 #class Operations:
     #def __init__(self):
 
-# This is just for try. I have created script that prepares this json statement.
-# I have problem with read data from it.
-ATMs = {
-    'ATM_1':
-        {'name': 'ATM_1', 'balance': 10000},
-    'ATM_2':
-        {'name': 'ATM_2', 'balance': 20000},
-    'ATM_3':
-        {'name': 'ATM_3', 'balance': 30000},
-    'ATM_4':
-        {'name': 'ATM_4', 'balance': 40000},
-    'ATM_5':
-        {'name': 'ATM_5', 'balance': 50000}
-}
-users = {
-    'Adam_Bajerowicz':{
-        'PIN': '0001', 'balance': 15000},
-    'Lukasz_Klekowski':{
-        'PIN': '0002', 'balance': 20000},
-    'Piotr_Kawa':{
-        'PIN': '0003', 'balance': 25000}
-}
+with open('ATMs.json','r+') as file:
+    ATMs = json.load(file)
 
-# I have prepared methods that can be done with ATM. Did I forget about sth?
+with open('Clients.json','r+') as json_file:
+    users = json.load(json_file)
+
 
 # Choice of ATM
-def choice():
-    print('You can use ATM no. 1, 2, 3, 4 or 5. Which one do You like?')
+def make_choice():
+    print('You can use ATM no. 1, 2, 3, 4 or 5. Which one do You like?\n'
+          "To leave type 9\n")
     n = int(input('I\'d like to choose ATM number: '))
-    while n not in [1,2,3,4,5]:
+    if n == 9:
+        exit()
+    while n not in [1,2,3,4,5,9]:
         n = int(input('Wrong! Select correct ATM! Your ATM number: '))
+        if n == 9:
+            exit()
     return n
 
 # Logging in
-def authorisation():
+def authorisate():
     print('****   Login   ****')
     name = str(input('Your name: '))
     password = str(input('Your PIN: '))
     if password == users[f'{name}']['PIN']:
+        os.system('cls||clear')
         print('Login succesfully!')
     else:
-        print('Invalid login or password')
+        os.system('cls||clear')
+        print('Invalid login or password!')
+        time.sleep(5)
+        exit()
     return name
 
-def payment(n, name):
+def withdrawal(n, name):
     amount = int(input('How much money do you need? \n'))
     if ATMs[f'ATM_{n}']['balance'] < amount:
         print('There is not enought money in this ATM!')
@@ -56,56 +49,56 @@ def payment(n, name):
     else:
         ATMs[f'ATM_{n}']['balance'] = ATMs[f'ATM_{n}']['balance'] - amount
         users[f'{name}']['balance'] = users[f'{name}']['balance'] - amount
-    print('There is in ATM:', ATMs[f'ATM_{n}']['balance'])
-    print('There is on your account:',users[f'{name}']['balance'])
+    #print('There is in ATM:', ATMs[f'ATM_{n}']['balance'])
+    #print('There is on your account:',users[f'{name}']['balance'])
 
-def withdrawal(n, name): #Wpłata
+def payment(n, name): #Wpłata
     amount = int(input('How much money you want to give in? \n'))
     ATMs[f'ATM_{n}']['balance'] = ATMs[f'ATM_{n}']['balance'] + amount
     users[f'{name}']['balance'] = users[f'{name}']['balance'] + amount
-    print('There is in ATM:', ATMs[f'ATM_{n}']['balance'])
-    print('There is on your account:',users[f'{name}']['balance'])
+    #print('There is in ATM:', ATMs[f'ATM_{n}']['balance'])
+    #print('There is on your account:',users[f'{name}']['balance'])
 
 
-def balance(n, name): #Sprawdzenie salda konta
+def check_balance(n, name): #Sprawdzenie salda konta
     print('You have:', users[f'{name}']['balance'], 'zl')
 
 
-#with open('Clients', 'r') as file:
-#    loaded_json = json.loads(file)
+def main():
+    n = make_choice()
+    name = authorisate()
+    logged = 1
+    while logged == 1:
+        d = int(input('What you want to do?\n'
+                      'Make a payment - press 1\n'
+                      'Make a withdrawal - press 2\n'
+                      'Check your account balance - press 3\n'
+                      'Press 0 to log out\n'))
+        while d not in [0,1,2,3]:
+            d = int(input('There is no option like that. Try one more time!\n'
+                          'What you want to do?\n'
+                          'Make a payment - press 1\n'
+                          'Make a withdrawal - press 2\n'
+                          'Check your account balance - press 3\n'
+                          'Press 0 to log out\n'))
+        if d == 0:
+            os.system('cls||clear')
+            logged = d
+        elif d == 1:
+            os.system('cls||clear')
+            payment(n,name)
+            os.system('cls||clear')
+        elif d == 2:
+            os.system('cls||clear')
+            withdrawal(n,name)
+            time.sleep(5)
+            os.system('cls||clear')
+        else:
+            os.system('cls||clear')
+            check_balance(n,name)
+            time.sleep(5)
+            os.system('cls||clear')
 
-#print(loaded_json)
 
-n = choice()
-name = authorisation()
-payment(n, name)
-withdrawal(n, name)
-balance(n, name)
-
-#1. Wczytanie listy bankomatów.
-#2. Wybór bankomatu.
-#3. Autoryzacja:
-#    - pobranie listy klientów
-#    - porównanie PINu do imienie i nazwiska użytkownika
-#    - jeżeli jest to przechodzimy dalej, jak nie to błąd
-#4. Wybór opcji.
-#5. Wpłata:
-#    - podać kwotę wpłaty,
-#    - kwota jest dodana do konta i jednocześnie do bilansu bankomatu,
-#    - możliwość wyboru innej opcji.
-#6. Wypłata:
-#    - podać kwotę wypłaty,
-#    - sprawdzić czy ma tyle na koncie,
-#    - sprawdzić czy bankomat ma tyle w sobie,
-#    - jeżeli się zgadza to od konta odejmujemy kwotę i od bilansu bankomatu.
-#7. Zmiana PINu:
-#    - zassaj plik z klientami,
-#    - podaj stary PIN,
-#    - podaj nowy PIN,
-#    - zapisać do JSONa zmieniony PIN.
-#8. Sprawdzenie stanu konta:
-#    - zassaj listę użytkowników,
-#    - podaj stan konta
-#9. WYlogowanie:
-#    - usunięcie zmiennej z użytkownikiem,
-#    - zapisanie zmian w pliku 'ATMs'
+if __name__ == '__main__':
+    main()

@@ -30,7 +30,7 @@ ATMs = {
     'ATM_5':
         {'name': 'ATM_5', 'balance': 50000}
 }
-with open('ATMs','w') as file:
+with open('ATMs.json','w') as file:
     json.dump(ATMs, file)
 
 
@@ -43,5 +43,5 @@ users = {
         'PIN': '0003', 'balance': 25000}
 }
 
-with open('Clients', 'w') as file:
+with open('Clients.json', 'w') as file:
     json.dump(users, file)
