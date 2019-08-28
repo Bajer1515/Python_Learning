@@ -30,17 +30,18 @@ def authorisate():
     print('****   Login   ****')
     name = str(input('Your name: '))
     password = str(input('Your PIN: '))
-    if password == users[f'{name}']['PIN']:
-        os.system('cls||clear')
-        print('Login succesfully!')
+    if name in users:
+        if password == users[f'{name}']['PIN']:
+            os.system('cls||clear')
+            print('Login succesfully!')
     else:
         os.system('cls||clear')
-        print('Invalid login or password!')
+        print('You did something wrong!')
         time.sleep(5)
         exit()
     return name
 
-def withdrawal(n, name):
+def take_out(n, name): #outcome/withdrawal
     amount = int(input('How much money do you need? \n'))
     if ATMs[f'ATM_{n}']['balance'] < amount:
         print('There is not enought money in this ATM!')
@@ -52,15 +53,15 @@ def withdrawal(n, name):
     #print('There is in ATM:', ATMs[f'ATM_{n}']['balance'])
     #print('There is on your account:',users[f'{name}']['balance'])
 
-def payment(n, name): #Wpłata
-    amount = int(input('How much money you want to give in? \n'))
+def put_in(n, name): #income
+    amount = int(input('How much money you want to put in? \n'))
     ATMs[f'ATM_{n}']['balance'] = ATMs[f'ATM_{n}']['balance'] + amount
     users[f'{name}']['balance'] = users[f'{name}']['balance'] + amount
     #print('There is in ATM:', ATMs[f'ATM_{n}']['balance'])
     #print('There is on your account:',users[f'{name}']['balance'])
 
 
-def check_balance(n, name): #Sprawdzenie salda konta
+def check_balance(n, name):
     print('You have:', users[f'{name}']['balance'], 'zl')
 
 
@@ -69,28 +70,28 @@ def main():
     name = authorisate()
     logged = 1
     while logged == 1:
-        d = int(input('What you want to do?\n'
+        do = int(input('What you want to do?\n'
                       'Make a payment - press 1\n'
                       'Make a withdrawal - press 2\n'
                       'Check your account balance - press 3\n'
                       'Press 0 to log out\n'))
-        while d not in [0,1,2,3]:
-            d = int(input('There is no option like that. Try one more time!\n'
+        while do not in [0,1,2,3]:
+            do = int(input('There is no option like that. Try one more time!\n'
                           'What you want to do?\n'
                           'Make a payment - press 1\n'
                           'Make a withdrawal - press 2\n'
                           'Check your account balance - press 3\n'
                           'Press 0 to log out\n'))
-        if d == 0:
+        if do == 0:
             os.system('cls||clear')
-            logged = d
-        elif d == 1:
+            logged = do
+        elif do == 1:
             os.system('cls||clear')
-            payment(n,name)
+            put_in(n,name)
             os.system('cls||clear')
-        elif d == 2:
+        elif do == 2:
             os.system('cls||clear')
-            withdrawal(n,name)
+            take_out(n,name)
             time.sleep(5)
             os.system('cls||clear')
         else:
