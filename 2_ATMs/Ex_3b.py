@@ -2,14 +2,13 @@ import json
 import os
 import time
 
-#class Operations:
-    #def __init__(self):
+class Data:
 
-with open('ATMs.json','r+') as file:
-    ATMs = json.load(file)
-
-with open('Clients.json','r+') as json_file:
-    users = json.load(json_file)
+    def __init__(self):
+        with open('ATMs.json','r+') as file:
+            self.ATMs = json.load(file)
+        with open('Clients.json','r+') as json_file:
+            self.users = json.load(json_file)
 
 
 # Choice of ATM
@@ -66,6 +65,9 @@ def check_balance(n, name):
 
 
 def main():
+    data = Data()
+    ATMs = data.ATMs
+    users = data.users
     n = make_choice()
     name = authorisate()
     logged = 1
