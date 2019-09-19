@@ -1,11 +1,14 @@
 import requests
+import argparse
 
-first = int(input('First number to add: '))
-second = int(input('Second number to add: '))
+parser = argparse.ArgumentParser()
+parser.add_argument("first", type=int, help="First number to add")
+parser.add_argument("second", type= int, help="Second number to add")
+args = parser.parse_args()
 
 numbers = {
-    'First': first,
-    'Second': second
+    'First': args.first,
+    'Second': args.second
 }
 
 R = requests.post('http://127.0.0.1:5000/add', json=numbers)
